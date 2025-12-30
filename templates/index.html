@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Futuristic Vision @Aji</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: radial-gradient(
+          circle at center,
+          #000010,
+          #000428,
+          #004e92
+        );
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        font-family: "Orbitron", sans-serif;
+        color: #00fff5;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER ===== */
+      header {
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 40px;
+        border-bottom: 1px solid rgba(0, 255, 245, 0.2);
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+        z-index: 10;
+      }
+
+      .logo {
+        font-weight: 900;
+        letter-spacing: 2px;
+        text-shadow: 0 0 10px #00fff5;
+      }
+
+      nav a {
+        margin-left: 25px;
+        font-family: Inter;
+        font-size: 0.9rem;
+        color: rgba(200, 255, 255, 0.8);
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      nav a:hover {
+        color: #00fff5;
+        text-shadow: 0 0 8px #00fff5;
+      }
+
+      /* ===== MAIN ===== */
+      main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: linear-gradient(
+            rgba(0, 255, 245, 0.04) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, rgba(0, 255, 245, 0.04) 1px, transparent 1px);
+        background-size: 60px 60px;
+        animation: gridMove 20s linear infinite;
+        z-index: -1;
+      }
+
+      @keyframes gridMove {
+        to {
+          background-position: 60px 60px;
+        }
+      }
+
+      h1 {
+        font-size: 4rem;
+        text-shadow: 0 0 20px #00fff5;
+        animation: glow 2s infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 10px #00fff5;
+        }
+        to {
+          text-shadow: 0 0 40px #00fff5;
+        }
+      }
+
+      .glass-card {
+        padding: 60px 80px;
+        border-radius: 25px;
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(0, 255, 245, 0.25);
+        box-shadow: 0 0 60px rgba(0, 255, 245, 0.15),
+          inset 0 0 20px rgba(0, 255, 245, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        text-align: center;
+      }
+
+      .project-desc {
+        max-width: 520px;
+        font-family: Inter;
+        line-height: 1.8;
+        opacity: 0.9;
+      }
+
+      .typing-cursor::after {
+        content: "|";
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* ===== BUTTON ===== */
+      .start-btn {
+        position: relative;
+        overflow: hidden;
+        padding: 18px 55px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        background: linear-gradient(135deg, #00fff5, #00aaff);
+        color: #000;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 0 15px #00fff5;
+        animation: pulseGlow 2s infinite;
+      }
+
+      @keyframes pulseGlow {
+        50% {
+          box-shadow: 0 0 35px #00fff5;
+        }
+      }
+
+      .start-btn:hover {
+        transform: scale(1.08);
+      }
+
+      .start-btn img {
+        width: 24px;
+        filter: drop-shadow(0 0 8px #00fff5);
+      }
+
+      /* ===== FOOTER ===== */
+      footer {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Inter;
+        font-size: 0.85rem;
+        color: rgba(200, 255, 255, 0.6);
+        border-top: 1px solid rgba(0, 255, 245, 0.2);
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="logo">FUTURE•AI</div>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">Scan</a>
+        <a href="#">About</a>
+      </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+      <div class="glass-card">
+        <h1>SEE YOUR FUTURE</h1>
+        <p style="font-family: Inter; opacity: 0.6; letter-spacing: 2px">
+          BIOMETRIC AI SYSTEM
+        </p>
+
+        <p class="project-desc"><span id="typeText"></span></p>
+
+        <button id="startBtn" class="start-btn">
+          <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" />
+          GET START
+        </button>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>© 2025 Futuristic Vision • Built by Ajitesh</footer>
+
+    <script>
+      const text =
+        "A futuristic biometric palm scanning system that detects, analyzes, and visualizes human palm data in real time.";
+
+      const typeTarget = document.getElementById("typeText");
+      let index = 0;
+
+      function typeEffect() {
+        if (index < text.length) {
+          typeTarget.textContent += text.charAt(index++);
+          setTimeout(typeEffect, index % 6 === 0 ? 70 : 35);
+        } else {
+          typeTarget.classList.add("typing-cursor");
+        }
+      }
+
+      window.onload = typeEffect;
+
+      document.getElementById("startBtn").onclick = () => {
+        window.location.href = "/scan";
+      };
+    </script>
+  </body>
+</html>

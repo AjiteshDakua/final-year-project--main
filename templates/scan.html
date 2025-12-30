@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palm Scan</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        background: radial-gradient(circle at top, #000020, #000428, #002b5c);
+        font-family: "Orbitron", sans-serif;
+        color: #00fff5;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER ===== */
+      header {
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 40px;
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(0, 255, 245, 0.2);
+      }
+
+      .logo {
+        font-weight: 900;
+        letter-spacing: 2px;
+        text-shadow: 0 0 10px #00fff5;
+      }
+
+      nav a {
+        margin-left: 25px;
+        font-family: Inter;
+        font-size: 0.9rem;
+        color: rgba(200, 255, 255, 0.8);
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      nav a:hover {
+        color: #00fff5;
+        text-shadow: 0 0 8px #00fff5;
+      }
+
+      /* ===== MAIN ===== */
+      main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      /* ===== SCAN CARD ===== */
+      .scan-container {
+        width: 100%;
+        max-width: 560px;
+        padding: 35px 30px;
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(14px);
+        border-radius: 28px;
+        border: 1px solid rgba(0, 255, 245, 0.25);
+        box-shadow: 0 0 50px rgba(0, 255, 245, 0.18),
+          inset 0 0 25px rgba(0, 255, 245, 0.12);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+        text-align: center;
+      }
+
+      .avatar {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        border: 2px solid #00fff5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 35px rgba(0, 255, 245, 0.9),
+          inset 0 0 20px rgba(0, 255, 245, 0.35);
+        animation: avatarPulse 2.5s infinite;
+      }
+
+      .avatar::before {
+        content: "✋";
+        font-size: 4.5rem;
+      }
+
+      @keyframes avatarPulse {
+        50% {
+          box-shadow: 0 0 55px #00fff5;
+        }
+      }
+
+      h2 {
+        font-size: 1.9rem;
+        text-shadow: 0 0 18px #00fff5;
+      }
+
+      .status-text {
+        font-family: Inter;
+        font-size: 1.05rem;
+        opacity: 0.85;
+        animation: fadeText 1.6s infinite alternate;
+      }
+
+      @keyframes fadeText {
+        to {
+          opacity: 1;
+        }
+      }
+
+      .camera-wrapper {
+        width: 100%;
+        max-width: 460px;
+        aspect-ratio: 16 / 9;
+        display: none;
+        position: relative;
+      }
+
+      #cam {
+        width: 100%;
+        height: 100%;
+        border-radius: 18px;
+        border: 2px solid #00fff5;
+        object-fit: cover;
+      }
+
+      .scan-line {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #00fff5, transparent);
+        animation: scanMove 2s linear infinite;
+      }
+
+      @keyframes scanMove {
+        to {
+          top: 100%;
+        }
+      }
+
+      .progress-bar {
+        width: 100%;
+        max-width: 420px;
+        height: 10px;
+        background: rgba(0, 255, 245, 0.15);
+        border-radius: 10px;
+        overflow: hidden;
+        display: none;
+      }
+
+      .progress-fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #00fff5, #00aaff);
+        transition: width 0.4s ease;
+      }
+
+      .button-zone {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 20px;
+      }
+
+      .button-zone button {
+        min-width: 200px;
+        height: 56px;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+
+      .start-btn {
+        background: linear-gradient(135deg, #00fff5, #00aaff);
+        color: #000;
+      }
+
+      .retry-btn {
+        background: linear-gradient(135deg, #ff0044, #ff9900);
+        color: #000;
+      }
+
+      /* ===== FOOTER ===== */
+      footer {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Inter;
+        font-size: 0.85rem;
+        color: rgba(200, 255, 255, 0.6);
+        border-top: 1px solid rgba(0, 255, 245, 0.2);
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="logo">FUTURE•AI</div>
+      <nav>
+        <a href="/">Home</a>
+      </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+      <div class="scan-container">
+        <div class="avatar"></div>
+
+        <h2 id="titleText">Palm Scan Initialized</h2>
+        <div class="status-text" id="statusText">
+          Click begin to start scanning
+        </div>
+
+        <div class="camera-wrapper" id="cameraWrapper">
+          <img id="cam" />
+          <div class="scan-line"></div>
+        </div>
+
+        <div class="confidence" id="confidenceText"></div>
+
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="button-zone">
+          <button id="beginScan" class="start-btn">BEGIN SCAN</button>
+          <button id="retryBtn" class="retry-btn" style="display: none">
+            RETRY SCAN
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>© 2025 Futuristic Vision • Built by Aji</footer>
+
+    <script>
+      const container = document.querySelector(".scan-container");
+      const beginBtn = document.getElementById("beginScan");
+      const retryBtn = document.getElementById("retryBtn");
+      const cam = document.getElementById("cam");
+      const statusText = document.getElementById("statusText");
+      const titleText = document.getElementById("titleText");
+      const confidenceText = document.getElementById("confidenceText");
+      const cameraWrapper = document.getElementById("cameraWrapper");
+      const progressBar = document.getElementById("progressBar");
+      const progressFill = document.getElementById("progressFill");
+
+      let scanStarted = false;
+      let scanCompleted = false;
+      let scanTimeout = null;
+
+      function startScan() {
+        container.classList.remove("alert");
+
+        fetch("/start-scan").then(() => {
+          scanStarted = true;
+          scanCompleted = false;
+
+          cam.src = "/video";
+          cameraWrapper.style.display = "block";
+          beginBtn.style.display = "none";
+          retryBtn.style.display = "none";
+
+          titleText.innerText = "Scanning Palm";
+          statusText.innerText = "Initializing scanner...";
+          confidenceText.innerText = "";
+
+          progressBar.style.display = "block";
+          confidenceText.innerText = "Confidence: 0%";
+          progressFill.style.width = "0%";
+
+          scanTimeout = setTimeout(() => {
+            if (!scanCompleted) {
+              scanStarted = false;
+              container.classList.add("alert");
+
+              titleText.innerText = "Scan Failed";
+              statusText.innerText = "Palm not detected, try again";
+              progressBar.style.display = "none";
+              retryBtn.style.display = "block";
+            }
+          }, 12000);
+        });
+      }
+
+      beginBtn.onclick = startScan;
+      retryBtn.onclick = startScan;
+
+      setInterval(() => {
+        if (!scanStarted || scanCompleted) return;
+
+        fetch("/check-palm")
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.detected) return;
+
+            const conf = data.confidence;
+            confidenceText.innerText = `Confidence: ${conf}%`;
+
+            if (conf < 30) {
+              statusText.innerText = "Palm detected...";
+              progressFill.style.width = "30%";
+            } else if (conf < 60) {
+              statusText.innerText = "Analyzing biometric data...";
+              progressFill.style.width = "60%";
+            } else if (conf < 90) {
+              statusText.innerText = "Verifying identity...";
+              progressFill.style.width = "85%";
+            } else {
+              // ✅ FINAL STAGE
+              scanCompleted = true;
+              clearTimeout(scanTimeout);
+
+              statusText.innerText = "Scan complete";
+              progressFill.style.width = "100%";
+
+              setTimeout(() => {
+                window.location.href = "/about";
+              }, 2000);
+            }
+          });
+      }, 700);
+    </script>
+  </body>
+</html>
